@@ -1,0 +1,55 @@
+# Custom values for kube-prometheus-stack
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    additionalScrapeConfigs:
+      # Scrape backend metrics
+      - job_name: 'codebase-wiki-backend'
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names:
+                - myapp
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+          - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+            action: replace
+            regex: ([^:]+)(?::\d+)?;(\d+)
+            replacement: $1:$2
+            target_label: __address__
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            action: replace
+            target_label: app
+
+      # Scrape Kubernetes pod metrics
+      - job_name: 'kubernetes-pods'
+        kubernetes_sd_configs:
+          - role: pod
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_port]
+            action: replace
+            target_label: __address__
+            regex: (.+)
+            replacement: $1
+
+grafana:
+  enabled: false  # Grafana di-handle terpisah oleh Anggota 7
+
+alertmanager:
+  enabled: true
+
+nodeExporter:
+  enabled: true
+
+kubeStateMetrics:
+  enabled: true
