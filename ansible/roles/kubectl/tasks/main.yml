@@ -1,0 +1,13 @@
+---
+- name: Download kubectl binary (ARM64)
+  get_url:
+    url: https://dl.k8s.io/release/v1.28.0/bin/linux/arm64/kubectl
+    dest: /usr/local/bin/kubectl
+    mode: '0755'
+
+- name: Verify kubectl installed
+  command: /usr/local/bin/kubectl version --client
+  register: kubectl_version
+
+- debug:
+    msg: "{{ kubectl_version.stdout }}"

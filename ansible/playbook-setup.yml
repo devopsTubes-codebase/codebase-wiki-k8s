@@ -1,0 +1,9 @@
+---
+- name: Provisioning Managed Host untuk Kubernetes
+  hosts: managed_hosts
+  become: yes
+  roles:
+    - docker
+    - minikube
+    - kubectl
+    - helm
