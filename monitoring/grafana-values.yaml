@@ -1,0 +1,51 @@
+# Grafana Helm Values - Codebase Wiki
+# Install: helm install grafana grafana/grafana -n monitoring --values grafana-values.yaml
+
+adminUser: admin
+adminPassword: admin123
+
+# Prometheus sebagai data source
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
+        jsonData:
+          timeInterval: "5s"
+        access: proxy
+        isDefault: true
+        editable: true
+
+# Dashboard provisioning
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: "default"
+        orgId: 1
+        folder: "Codebase Wiki"
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+
+dashboardsConfigMaps:
+  default: "grafana-dashboards"
+
+service:
+  type: NodePort
+
+persistence:
+  enabled: true
+  size: 2Gi
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "100m"
+  limits:
+    memory: "512Mi"
+    cpu: "250m"
