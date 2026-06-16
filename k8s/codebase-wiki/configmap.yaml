@@ -6,14 +6,10 @@ metadata:
   labels:
     app.kubernetes.io/part-of: codebase-wiki
 data:
-  # OpenAI / AI config (chat completion)
-  OPENAI_BASE_URL: "http://43.228.214.145:8317/v1"
-  AI_MODEL: "deepseek-v4-flash"
+  # OpenAI / AI config
+  OPENAI_BASE_URL: "https://api.openai.com/v1"
+  AI_MODEL: "gpt-4-turbo-preview"
   AI_EMBEDDING_MODEL: "text-embedding-3-small"
-
-  # Gemini config (embedding provider)
-  GEMINI_BASE_URL: "https://generativelanguage.googleapis.com/v1beta"
-  GEMINI_EMBEDDING_MODEL: "text-embedding-004"
 
   # GitHub clone config
   GITHUB_CLONE_TIMEOUT: "300000"
