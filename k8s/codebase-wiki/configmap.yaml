@@ -7,8 +7,8 @@ metadata:
     app.kubernetes.io/part-of: codebase-wiki
 data:
   # OpenAI / AI config
-  OPENAI_BASE_URL: "http://43.228.214.145:8317/v1"
-  AI_MODEL: "deepseek-v4-flash"
+  OPENAI_BASE_URL: "https://api.openai.com/v1"
+  AI_MODEL: "gpt-4-turbo-preview"
   AI_EMBEDDING_MODEL: "text-embedding-3-small"
 
   # GitHub clone config
