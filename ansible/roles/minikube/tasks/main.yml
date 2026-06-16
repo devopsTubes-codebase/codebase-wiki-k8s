@@ -1,0 +1,13 @@
+---
+- name: Download Minikube binary (ARM64)
+  get_url:
+    url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-arm64
+    dest: /usr/local/bin/minikube
+    mode: '0755'
+
+- name: Verify Minikube installed
+  command: /usr/local/bin/minikube version
+  register: minikube_version
+
+- debug:
+    msg: "{{ minikube_version.stdout }}"
