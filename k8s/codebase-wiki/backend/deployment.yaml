@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: hshinosa/codebase-wiki-backend:latest
+          image: hshinosa/codebase-wiki-backend:main-ef6e22c
           ports:
             - containerPort: 4000
               name: http
