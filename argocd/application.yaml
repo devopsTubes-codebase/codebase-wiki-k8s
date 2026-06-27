@@ -7,8 +7,8 @@ spec:
   project: default
   source:
     repoURL: https://github.com/devopsTubes-codebase/codebase-wiki-k8s.git
-    targetRevision: HEAD
-    path: k8s
+    targetRevision: main
+    path: k8s/codebase-wiki
   destination:
     server: https://kubernetes.default.svc
     namespace: codebase-wiki
